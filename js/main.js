@@ -42,13 +42,16 @@ const TPLTVAR_PREINTERVIEW_TEXT       = '$PREINTERVIEW_TEXT$';       // The prei
 const TPLTVAR_QUESTIONS_CONTAINER     = '$QUESTIONS_CONTAINER$';     // Replaced by a string containing all the question templates combined
 const TPLTVAR_QUESTION_TEXT           = '$QUESTION_TEXT$';           // The question itself (should be limited to a single line)
 const TPLTVAR_QUESTION_ANSWER_CONTENT = '$QUESTION_ANSWER_CONTENT$'; // The answer and any dialog/RP related to the question
+const TPLTVAR_INTERVIEWER_NAME = '$INTERVIEWER_NAME'; // Interviewer's name
+const TPLTVAR_GRAMMAR_MARK = '$GRAMMAR_MARK'; // The Grammar mark given.
+const TPLTVAR_ROLEPLAY_MARK = '$ROLEPLAY_MARK'; // The Roleplay mark given.
 
 // The main template is the parent template; individual question templates are parsed
 // and then embedded within this template.
 const MAIN_TEMPLATE = `[divbox=white]
 [center]${TPLTVAR_HEADER_IMAGE_LINK}[/center] 
 
-[divbox=${TPLTVAR_DIVBOX_COLOR}][color=white][center][size=150][font=AmerType Md BT]INTERVIEW - ${TPLTVAR_INTERVIEWEE_NAME}[/font][/size][/center][/color][/divbox]
+[divbox=${TPLTVAR_DIVBOX_COLOR}][color=white][center][size=150][font=AmerType Md BT]INTERVIEW - [/font][/size][/center][/color][/divbox]
 
 [justify]
 [legend=${TPLTVAR_DIVBOX_COLOR}, Preinterview]${TPLTVAR_PREINTERVIEW_TEXT}[/legend]
@@ -68,7 +71,7 @@ const MAIN_TEMPLATE = `[divbox=white]
 
 [list=none][b][u]Details[/u][/b]
 [list=none][b]Applicant Name:[/b] ${TPLTVAR_INTERVIEWEE_NAME}
-[b]Interviewer Name:[/b] Firstname Lastname
+[b]Interviewer Name:[/b] ${TPLTVAR_INTERVIEWER_NAME}
 [/list][/list]
 
 [hr][/hr]
@@ -78,16 +81,13 @@ const MAIN_TEMPLATE = `[divbox=white]
 
 ${TPLTVAR_QUESTIONS_CONTAINER}
 
-[b]Would you like to add anything before we conclude this interview?[/b]
-[i]Response here[/i]
-
 [/list][/list]
 
 [hr][/hr]
 
 [list=none][b][u]Interview Review[/u][/b]
-[list=none][b]Grammar:[/b] 0/5
-[b]Roleplay:[/b] 0/5
+[list=none][b]Grammar:[/b] ${TPLTVAR_GRAMMAR_MARK}/5
+[b]Roleplay:[/b] ${TPLTVAR_ROLEPLAY_MARK}/5
 [/list][/list]
 
 [hr][/hr]
@@ -130,6 +130,8 @@ let g_HeaderImageLink = ''; // Header image link
 let g_Participants = [];    // Interview participants to include
 let g_DivboxColor = '';     // Divbox color
 let g_RoleplayColor = '';   // Role play color
+let g_RoleplayMark = ''; // Roleplay mark
+let g_GrammarMark = '';  // Grammar mark
 
 // Handle the file selector element...
 const fileSelector = document.getElementById('input-chatlog-file');
@@ -150,6 +152,8 @@ fileSelector.addEventListener('change', (event) => {
         g_DivboxColor       = parseColor('input-divbox-color', g_DefaultDivboxColor);
         g_RoleplayColor     = parseColor('input-roleplay-color', g_DefaultRoleplayColor);
         g_Participants      = parseParticipants();
+        g_RoleplayMark      = document.getElementById('input-roleplay-mark').value;
+        g_GrammarMark       = document.getElementById('input-grammar-mark').value;
 
         // Only parse when there weren't any custom errors.
         if (!g_HasError) {
@@ -338,7 +342,10 @@ function parseChatLog(lines) {
     formattedTemplate = formattedTemplate.replace(TPLTVAR_HEADER_IMAGE_LINK, g_HeaderImageLink);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_PREINTERVIEW_TEXT, preinterviewContent);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_INTERVIEWEE_NAME, g_IntervieweeName);
+    formattedTemplate = formattedTemplate.replace(TPLTVAR_INTERVIEWER_NAME, g_InterviewerName);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_QUESTIONS_CONTAINER, allQuestions);
+    formattedTemplate = formattedTemplate.replace(TPLTVAR_GRAMMAR_MARK, g_GrammarMark);
+    formattedTemplate = formattedTemplate.replace(TPLTVAR_ROLEPLAY_MARK, g_RoleplayMark);
 
     const divColorRegex = new RegExp(escapeRegExp(TPLTVAR_DIVBOX_COLOR), 'g');
     formattedTemplate = formattedTemplate.replace(divColorRegex, g_DivboxColor);
