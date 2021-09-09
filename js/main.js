@@ -52,19 +52,8 @@ const MAIN_TEMPLATE = `[divbox=white]
 
 [justify]
 [legend=${TPLTVAR_DIVBOX_COLOR}, Preinterview]${TPLTVAR_PREINTERVIEW_TEXT}[/legend]
-${TPLTVAR_QUESTIONS_CONTAINER}
 [/justify]
 [/divbox]
-
-Response format:
-[code]
-[legend=${TPLTVAR_DIVBOX_COLOR}, Evaluation]
-[b]Reviewer's name:[/b]
-[b]Reviewer's badge number:[/b]
-[b]Evaluation:[/b]
-[b](([/b] [b]OOC Note:[/b] (optional) [b]))[/b]
-[/legend]
-[/code]
 
 [divbox=white]
 [color=#FFFFFF].[/color]
@@ -78,7 +67,7 @@ Response format:
 [hr][/hr]
 
 [list=none][b][u]Details[/u][/b]
-[list=none][b]Applicant Name:[/b] Firstname Lastname
+[list=none][b]Applicant Name:[/b] ${TPLTVAR_INTERVIEWEE_NAME}
 [b]Interviewer Name:[/b] Firstname Lastname
 [/list][/list]
 
@@ -86,13 +75,8 @@ Response format:
 
 [list=none][b][u]Interview Summary[/u][/b]
 [list=none][b]Interview Log[/b]
-[SPOILER]INSERT CHATLOG HERE[/SPOILER]
 
-[color=#FFFFFF].[/color]
-
-[b]Interview Questions[/b]
-[b]Insert Question[/b]
-[i]Response here (add more if asked more)[/i]
+${TPLTVAR_QUESTIONS_CONTAINER}
 
 [b]Would you like to add anything before we conclude this interview?[/b]
 [i]Response here[/i]
