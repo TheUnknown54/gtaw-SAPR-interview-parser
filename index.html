@@ -1,0 +1,136 @@
+<!DOCTYPE html utf-8>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    </head>
+    <body class="d-flex flex-column h-100 bg-dark text-light">
+        <main class="flex-shrink-0">
+            <div class="container my-5 text-center">
+                <h1>GENERATE INTERVIEW TOPICS</h1>
+                <p>Made by JeffersonKay (Acygol)</p>
+            </div>
+
+            <div class="container">
+
+                <!-- Tip on how to use... -->
+                <div class="alert alert-success mb-4">
+                    <h4>How It Works</h4>
+                    <hr>
+                    <p>
+                        The tool begins working its magic the moment you select a file. Here's how the parsing process works:
+                        <ol>
+                            <li>Look for a mention of the interviewer's badge number and the word "interview" in the same sentence. This is where the interview starts;</li>
+                            <li>The preinterview is parsed from the start line up until the first question;</li>
+                            <li>Each question is determined by whether a <b>spoken</b> line ends with a question mark;</li>
+                            <li>Look for a mention of your badge number and "interview" again. This is where the parser stops parsing;</li>
+                        </ol>
+    
+                        I advise anyone that uses this parser to start and end their interviews along the lines of:
+                    </p>
+                    <ul style="list-style: none;">
+                        <p>
+                            "JeffersonKay, badge number 54684, commencing interview with..."<br>
+                            "JeffersonKay, badge number 54684, ending interview with..."
+                        </p>
+                    </ul>
+                    <p>
+                        In case you forgot, no big deal. Just add it in manually where the interview starts and where it ends. And then parse the chat log file again.
+                    </p>
+                    <p>
+                        Obligatory notice: this tool saves absolutely <b>no</b> data. If the form shows persistent behavior — i.e., the data you entered 
+                        previously is still there — then that's your browser caching it for you. That's not my doing.
+                    </p>
+                </div>
+                
+                <div id="div-error"></div>
+
+                <form class="my-4">
+                    <div class="form-group form-row my-4">
+                        <div class="col">
+                            <label for="input-interviewer-name">Interviewer's Name</label>
+                            <input type="text" class="form-control" id="input-interviewer-name" placeholder="Firstname Lastname" aria-describedby="help-interviewer-name" />
+                            <small id="help-interviewer-name" class="form-text">The name of the person that conducted the interview.</small>
+                        </div>
+                        <div class="col">
+                            <label for="input-interviewer-badge">Interviewer's Badge Number</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">#</div>
+                                </div>
+                                <input type="text" class="form-control" id="input-interviewer-badge" placeholder="548724" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-4">
+                        <label for="input-interviewee-name">Interviewee's Name</label>
+                        <input type="text" class="form-control" id="input-interviewee-name" placeholder="Firstname Lastname" aria-describedby="help-interviewee-name" />
+                        <small id="help-interviewee-name" class="form-text">The name of the person that was interviewed.</small>
+                    </div>
+                    <div class="form-group my-4">
+                        <label for="input-participants-names">Names of all participants</label>
+                        <textarea type="text" class="form-control" id="input-participants-names" aria-describedby="help-participants-names" rows="6" placeholder="Firstname Lastname"></textarea>
+                        <small id="help-participants-names" class="form-text">Put the names of each participant on a separate line. Leave blank if no other people were involved.</small>
+                    </div>
+
+                    <div class="form-group my-4">
+                        <label for="input-header-img-link">Header Image Link</label>
+                        <input type="text" class="form-control" id="input-header-img-link" placeholder="https://i.imgur.com/" aria-describedby="help-header-img-link" />
+                        <small id="help-header-img-link" class="form-text">Make sure you select the link that has .png or .jpeg at the end of it. Leave blank for no header image.</small>
+                    </div>
+
+                    <div class="form-group form-row my-4">
+                        <div class="col">
+                            <label for="input-divbox-color">Styling Color</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">#</div>
+                                </div>
+                                <input type="text" class="form-control" id="input-divbox-color" placeholder="4D0000" aria-describedby="help-divbox-color" />
+                            </div>
+                            <small id="help-divbox-color" class="form-text">The default is a shade of red too dark to display on a dark background.</small>
+                        </div>
+                        <div class="col">
+                            <label for="input-roleplay-color">Color for role play lines</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">#</div>
+                                </div>
+                                <input type="text" class="form-control" id="input-roleplay-color" placeholder="E6A8C1" aria-describedby="help-roleplay-color" />
+                            </div>
+                            <small id="help-roleplay-color" class="form-text">The default is a <span style="color: #AD82CE;">shade of purple</span>.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-file my-4">
+                            <label class="custom-file-label" for="input-chatlog-file">Choose a text file</label>
+                            <input type="file" class="custom-file-input" id="input-chatlog-file" aria-describedby="help-chatlog-file">
+                            <small id="help-chatlog-file" class="form-text">Make sure you select a text file.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group my-4">
+                        <label for="output-box">Output</label>
+                        <textarea class="form-control" id="output-box" rows="20" readonly></textarea>
+                    </div>
+                </form>
+
+                <button type="button" class="btn btn-secondary btn-block" onclick="generateWordGod(0)">Talk to God in English</button>
+                <button type="button" class="btn btn-secondary btn-block" onclick="generateWordGod(1)">Talk to God in Lithuanian</button>
+                <button type="button" class="btn btn-secondary btn-block" onclick="generateWordGod(2)">Talk to God in Turkish</button>
+                <button type="button" class="btn btn-secondary btn-block" onclick="generateWordGod(3)">Talk to God in Hawaiian</button>
+                <p id="div-gods-word" class="alert alert-success my-4">God will speak here.</p>
+            </div>
+        </main>
+
+        <footer class="footer mt-auto py-2">
+            <div class="text-muted text-center">Source code available on <a href="https://github.com/Acygol/gtaw-interview-parser/">GitHub</a></div>
+        </footer>
+        
+        <script src="js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    </body>
+</html>
