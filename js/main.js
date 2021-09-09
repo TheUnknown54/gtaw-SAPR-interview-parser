@@ -65,6 +65,66 @@ Response format:
 [b](([/b] [b]OOC Note:[/b] (optional) [b]))[/b]
 [/legend]
 [/code]
+
+[divbox=white]
+[color=#FFFFFF].[/color]
+
+[center][saprlogo=150][/saprlogo][/center]
+
+[divbox=#475745][center][/center][/divbox]
+
+[divbox=#475745][center][color=#FFFFFF][b]Interview Questions[/b][/color][/center][/divbox]
+
+[hr][/hr]
+
+[list=none][b][u]Details[/u][/b]
+[list=none][b]Applicant Name:[/b] Firstname Lastname
+[b]Interviewer Name:[/b] Firstname Lastname
+[/list][/list]
+
+[hr][/hr]
+
+[list=none][b][u]Interview Summary[/u][/b]
+[list=none][b]Interview Log[/b]
+[SPOILER]INSERT CHATLOG HERE[/SPOILER]
+
+[color=#FFFFFF].[/color]
+
+[b]Interview Questions[/b]
+[b]Insert Question[/b]
+[i]Response here (add more if asked more)[/i]
+
+[b]Would you like to add anything before we conclude this interview?[/b]
+[i]Response here[/i]
+
+[/list][/list]
+
+[hr][/hr]
+
+[list=none][b][u]Interview Review[/u][/b]
+[list=none][b]Grammar:[/b] 0/5
+[b]Roleplay:[/b] 0/5
+[/list][/list]
+
+[hr][/hr]
+
+[list=none][b][u]Other Information[/u][/b]
+[list=none][b]Notes:[/b] Use this section to keep track of important information regarding this applicant.
+[/list]
+[list=none][b]Does the applicant have any tattoo's on the Neck, Face or Hand:[/b]
+[list=none][cb] Yes [cb] No[/list][/list][/list]
+
+[hr][/hr]
+
+[center][size=85](This section is to be filled out by supervisors only)[/size][/center]
+[color=#FFFFFF].[/color]
+[list=none][b]SUPERVISOR INFORMATION[/b]
+[list=none][b]REVIEWED BY:[/b]
+[b]PASS OR FAIL[/b]
+[/list][/list]
+
+[color=#FFFFFF].[/color]
+[hr][/hr][/divbox]
 `
 
 // Individual question template
@@ -75,7 +135,7 @@ let g_HasError = false;
 const g_ErrorDiv = document.getElementById('div-error');
 
 // Default colors
-const g_DefaultDivboxColor  = '#4D0000'; // Some shade of red
+const g_DefaultDivboxColor  = '#475745'; // Some shade of green
 const g_DefaultRoleplayColor = '#AD82CE'; // Some shade of purple
 
 // Form data
