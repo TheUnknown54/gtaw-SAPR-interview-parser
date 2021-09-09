@@ -42,9 +42,11 @@ const TPLTVAR_PREINTERVIEW_TEXT       = '$PREINTERVIEW_TEXT$';       // The prei
 const TPLTVAR_QUESTIONS_CONTAINER     = '$QUESTIONS_CONTAINER$';     // Replaced by a string containing all the question templates combined
 const TPLTVAR_QUESTION_TEXT           = '$QUESTION_TEXT$';           // The question itself (should be limited to a single line)
 const TPLTVAR_QUESTION_ANSWER_CONTENT = '$QUESTION_ANSWER_CONTENT$'; // The answer and any dialog/RP related to the question
-const TPLTVAR_INTERVIEWER_NAME = '$INTERVIEWER_NAME'; // Interviewer's name
-const TPLTVAR_GRAMMAR_MARK = '$GRAMMAR_MARK'; // The Grammar mark given.
-const TPLTVAR_ROLEPLAY_MARK = '$ROLEPLAY_MARK'; // The Roleplay mark given.
+const TPLTVAR_INTERVIEWER_NAME = '$INTERVIEWER_NAME$'; // Interviewer's name
+const TPLTVAR_GRAMMAR_MARK = '$GRAMMAR_MARK$'; // The Grammar mark given.
+const TPLTVAR_ROLEPLAY_MARK = '$ROLEPLAY_MARK$'; // The Roleplay mark given.
+const TPLTVAR_EXTRA_INFORMATION = '$EXTRA_INFO$'; //Extra Information given
+const TPLTVAR_TATTOO = '$TATTOOVALUE$'; // Tattoo's yes/no
 
 // The main template is the parent template; individual question templates are parsed
 // and then embedded within this template.
@@ -69,9 +71,7 @@ const MAIN_TEMPLATE = `[divbox=white]
 
 [list=none][b][u]Interview Summary[/u][/b]
 [list=none][b]Interview Log[/b]
-[divbox=white]
 ${TPLTVAR_QUESTIONS_CONTAINER}
-[/divbox]
 [/list][/list]
 
 [hr][/hr]
@@ -84,10 +84,10 @@ ${TPLTVAR_QUESTIONS_CONTAINER}
 [hr][/hr]
 
 [list=none][b][u]Other Information[/u][/b]
-[list=none][b]Notes:[/b] Use this section to keep track of important information regarding this applicant.
+[list=none][b]Notes:[/b] ${TPLTVAR_EXTRA_INFORMATION}
 [/list]
 [list=none][b]Does the applicant have any tattoo's on the Neck, Face or Hand:[/b]
-[list=none][cb] Yes [cb] No[/list][/list][/list]
+[list=none]${TPLTVAR_TATTOO}[/list][/list][/list]
 
 [hr][/hr]
 
@@ -123,6 +123,8 @@ let g_DivboxColor = '';     // Divbox color
 let g_RoleplayColor = '';   // Role play color
 let g_RoleplayMark = ''; // Roleplay mark
 let g_GrammarMark = '';  // Grammar mark
+let g_ExtraNotes = ''; // Extra User Notes
+let g_Tattoo = ''; // Tattoos yes/no
 
 // Handle the file selector element...
 const fileSelector = document.getElementById('input-chatlog-file');
@@ -145,6 +147,8 @@ fileSelector.addEventListener('change', (event) => {
         g_Participants      = parseParticipants();
         g_RoleplayMark      = document.getElementById('input-roleplay-mark').value;
         g_GrammarMark       = document.getElementById('input-grammar-mark').value;
+        g_ExtraNotes        = document.getElementById('input-extra-information').value;
+        g_Tattoo            = document.getElementById('input-tattoo-value').value;
 
         // Only parse when there weren't any custom errors.
         if (!g_HasError) {
@@ -337,6 +341,9 @@ function parseChatLog(lines) {
     formattedTemplate = formattedTemplate.replace(TPLTVAR_QUESTIONS_CONTAINER, allQuestions);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_GRAMMAR_MARK, g_GrammarMark);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_ROLEPLAY_MARK, g_RoleplayMark);
+    formattedTemplate = formattedTemplate.replace(TPLTVAR_EXTRA_INFORMATION, g_ExtraNotes);
+    formattedTemplate = formattedTemplate.replace(TPLTVAR_TATTOO, g_Tattoo);
+
 
     const divColorRegex = new RegExp(escapeRegExp(TPLTVAR_DIVBOX_COLOR), 'g');
     formattedTemplate = formattedTemplate.replace(divColorRegex, g_DivboxColor);
@@ -352,7 +359,6 @@ function escapeRegExp(unescapedString) {
 //      q_content:  the answer and all the dialog as a response to the question
 function formatQuestion(q_header, q_content) {
     let formattedTemplate = QUESTION_TEMPLATE;
-    formattedTemplate = formattedTemplate.replace(TPLTVAR_DIVBOX_COLOR, g_DivboxColor);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_QUESTION_TEXT, q_header);
     formattedTemplate = formattedTemplate.replace(TPLTVAR_QUESTION_ANSWER_CONTENT, q_content);
     return formattedTemplate;
