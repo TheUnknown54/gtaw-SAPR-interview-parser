@@ -49,15 +49,6 @@ const TPLTVAR_ROLEPLAY_MARK = '$ROLEPLAY_MARK'; // The Roleplay mark given.
 // The main template is the parent template; individual question templates are parsed
 // and then embedded within this template.
 const MAIN_TEMPLATE = `[divbox=white]
-[center]${TPLTVAR_HEADER_IMAGE_LINK}[/center] 
-
-[divbox=${TPLTVAR_DIVBOX_COLOR}][color=white][center][size=150][font=AmerType Md BT]INTERVIEW - [/font][/size][/center][/color][/divbox]
-
-[justify]
-[legend=${TPLTVAR_DIVBOX_COLOR}, Preinterview]${TPLTVAR_PREINTERVIEW_TEXT}[/legend]
-[/justify]
-[/divbox]
-
 [divbox=white]
 [color=#FFFFFF].[/color]
 
@@ -78,9 +69,9 @@ const MAIN_TEMPLATE = `[divbox=white]
 
 [list=none][b][u]Interview Summary[/u][/b]
 [list=none][b]Interview Log[/b]
-
+[divbox=white]
 ${TPLTVAR_QUESTIONS_CONTAINER}
-
+[/divbox]
 [/list][/list]
 
 [hr][/hr]
