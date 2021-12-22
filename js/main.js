@@ -73,7 +73,7 @@ const MAIN_TEMPLATE = `[divbox=white]
 [list=none][altspoiler=Interview Log][b]Interview Log[/b]
 [legend=${TPLTVAR_DIVBOX_COLOR}, Preinterview]${TPLTVAR_PREINTERVIEW_TEXT}[/legend]
 ${TPLTVAR_QUESTIONS_CONTAINER}
-[/list][/altspoiler][[/list]
+[/list][/altspoiler][/list]
 
 [hr][/hr]
 
