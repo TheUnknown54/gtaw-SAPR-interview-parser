@@ -70,9 +70,9 @@ const MAIN_TEMPLATE = `[divbox=white]
 [hr][/hr]
 
 [list=none][b][u]Interview Summary[/u][/b]
-[list=none][b]Interview Log[/b]
+[list=none][altspoiler=Interview Log][b]Interview Log[/b]
 ${TPLTVAR_QUESTIONS_CONTAINER}
-[/list][/list]
+[/list][/altspoiler][[/list]
 
 [hr][/hr]
 
